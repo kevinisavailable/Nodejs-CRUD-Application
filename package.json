@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-crud-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinisavailable/Nodejs-CRUD-Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinisavailable/Nodejs-CRUD-Application/issues"
+  },
+  "homepage": "https://github.com/kevinisavailable/Nodejs-CRUD-Application#readme",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
