@@ -3,18 +3,14 @@ const routerBook = express.Router()
 const connect = require('./../database/db')
 
 routerBook
-    .route('/')
+    .route('/') 
     .get(async(req,res)=>{
         const db = await connect()
         const books =await db.collection('book').find().toArray()
          res.send(books)})
     .post(async(req,res)=>{
         const db = await connect()
-        data = {
-            title:"Hello Book",
-            author:"Random Author"
-        }
-        await db.collection('book').insertOne(data)
+        await db.collection('book').insertOne(req.body)
         res.json({data:"Book is Stored"})})
 
 routerBook
