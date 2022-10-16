@@ -1,11 +1,21 @@
 const express = require('express')
 const routerBook = express.Router()
-
+const connect = require('./../database/db')
 
 routerBook
     .route('/')
-    .get((req,res)=>{ res.send("All books")})
-    .post((req,res)=>{res.json({data:"Book is Stored"})})
+    .get(async(req,res)=>{
+        const db = await connect()
+        const books =await db.collection('book').find().toArray()
+         res.send(books)})
+    .post(async(req,res)=>{
+        const db = await connect()
+        data = {
+            title:"Hello Book",
+            author:"Random Author"
+        }
+        await db.collection('book').insertOne(data)
+        res.json({data:"Book is Stored"})})
 
 routerBook
     .route('/:id')
