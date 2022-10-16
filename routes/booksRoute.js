@@ -12,7 +12,7 @@ routerBook
     .post(async(req,res)=>{
         const db = await connect()
         await db.collection('book').insertOne(req.body)
-        res.json({data:"Book is Stored"})})
+        res.status(201).json({data:"Book is Stored"})})
 
 routerBook
     .route('/:id')
@@ -27,10 +27,13 @@ routerBook
         const _id = ObjectId(req.params.id)
         const db = await connect()
         const book = await db.collection('book').updateOne({_id},{$set: req.body})
-        res.send(`Book is Updated`)
+        res.status(200).send(`Book is Updated`)
     })
-    .delete((req,res)=>{
-        res.send(`Deleted a single book of id ${req.params.id}`)
+    .delete(async (req,res)=>{
+        const _id = ObjectId(req.params.id)
+        const db = await connect()
+        const book = await db.collection('book').deleteOne({_id})
+        res.status(204).send()
     })
 
 module.exports = routerBook
