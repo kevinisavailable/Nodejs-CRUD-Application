@@ -8,9 +8,16 @@ exports.index = async(req,res)=>{
     res.send(books)}
 
 exports.create = async(req,res)=>{
-    const db = await connect()
-    await db.collection('book').insertOne(req.body)
-    res.status(201).json({data:"Book is Stored"})}
+    // const db = await connect()
+    // await db.collection('book').insertOne(req.body)
+    try {
+        await Book.create(req.body)
+        res.status(201).json({data:"Book is Stored"})}
+        
+    catch (error) {
+        res.json(error.errors)
+    }
+}
 
 exports.book = async(req,res)=>{
     const _id = ObjectId(req.params.id)
