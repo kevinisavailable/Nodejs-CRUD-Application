@@ -1,4 +1,5 @@
 const express = require('express')
+const { ObjectId } = require('mongodb')
 const routerBook = express.Router()
 const connect = require('./../database/db')
 
@@ -15,11 +16,18 @@ routerBook
 
 routerBook
     .route('/:id')
-    .get((req,res)=>{
-        res.send(`Got a single book of id ${req.params.id}`)
+    .get(async(req,res)=>{
+        const _id = ObjectId(req.params.id)
+        // const id = req.params.id
+        const db = await connect()
+        const book = await db.collection('book').find({_id}).toArray()
+        res.json(book)
     })
-    .patch((req,res)=>{
-        res.send(`Updated a single book of id ${req.params.id}`)
+    .patch(async (req,res)=>{
+        const _id = ObjectId(req.params.id)
+        const db = await connect()
+        const book = await db.collection('book').updateOne({_id},{$set: req.body})
+        res.send(`Book is Updated`)
     })
     .delete((req,res)=>{
         res.send(`Deleted a single book of id ${req.params.id}`)
