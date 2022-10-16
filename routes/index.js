@@ -2,6 +2,7 @@ const { application } = require('express')
 const express = require('express')
 const router = express.Router()
 const routerBook = require('./booksRoute')
+const routerAuth = require('./authRoute')
 const path = require('path')
 
 
@@ -15,6 +16,7 @@ router.post('/',(req,res)=>{
 })
 
 router.use('/book',routerBook)
+router.use('/auth',routerAuth)
 
 router.all('/*',(req,res)=>{
     res.render('pages/404')
